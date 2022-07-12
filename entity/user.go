@@ -1,6 +1,16 @@
 package entity
 
+import (
+	"gorm.io/gorm"
+)
+
 // 一个结构体就是一个模型 可以嵌入gorm.Model 来减少字段编写
+type TestGromModel struct {
+	gorm.Model
+	Test1 string
+	Test2 string
+}
+
 type User struct {
 	Id        uint32     `json:"id" gorm:"primaryKey"`
 	Username  string     `json:"username"`
@@ -10,12 +20,11 @@ type User struct {
 	UserRole  []UserRole `json:"user_role" gorm:"foreignKey:UserId"`  // 一个用户可能有多个角色
 }
 
-//
 func (User) TableName() string {
 	return "user"
 }
 
-//姑且叫扩展表吧
+// 姑且叫扩展表吧
 type UserOther struct {
 	Id        uint32 `json:"id" gorm:"primarykey"`
 	UserId    uint32 `json:"user_id"`
