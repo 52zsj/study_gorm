@@ -85,7 +85,9 @@ func InitTableAndCreateDb(debug bool) *gorm.DB {
 		}
 		dump.P("正在初始化基础数据...")
 
-		db.Exec(insertSql)
+		for _, v := range insertSql {
+			db.Exec(v)
+		}
 
 		dump.P("很重要的一点,后续如果使用到多对多关联,注意将数据填充到user_role表中,谢谢")
 		//创建lock文件
@@ -107,7 +109,12 @@ func returnTableData() map[string]string {
 }
 
 // insertDefaultData 初始化基础数据
-func insertDefaultData() string {
-	insertSql := "INSERT INTO `role` (`name`) VALUES ('超级管理员'), ('管理员'),('子管理员'),('子子管理员');"
-	return insertSql
+func insertDefaultData() []string {
+	var sql = make([]string, 0)
+	sql1 := "INSERT INTO `role` (`name`) VALUES ('超级管理员'), ('管理员'),('子管理员'),('子子管理员');"
+	sql2 := "INSERT INTO `user` (`id`, `username`, `nickname`, `password`) VALUES (1, '我叫李白', '性别男，爱好吟诗作对', '123456'),(2,'我叫诗仙女','性别女,爱好坑队友','654321');"
+	sql3 := "INSERT INTO `user_other` (`id`, `user_id`, `other_info`) VALUES (1, 1, '我是李白的扩展信息'),(2,2,'我是诗仙女的扩展信息,我爱好和平');"
+	sql4 := "INSERT INTO `user_role` (`id`, `role_id`, `user_id`) VALUES (1, 1, 1),(2,3,2),(3,2,2),(4,1,2);"
+	sql = append(sql, sql1, sql2, sql3, sql4)
+	return sql
 }

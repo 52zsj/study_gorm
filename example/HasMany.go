@@ -3,34 +3,20 @@ package example
 import (
 	"github.com/gookit/goutil/dump"
 	"gorm.io/gorm"
-	"gorm/constant"
 	"gorm/entity"
 )
 
-func HasManyExample(db *gorm.DB, method uint32) {
-	switch method {
-	case constant.MethodHasManyFind:
-		hasManyFindExample(db, true)
-	case constant.MethodHasManyUpdate:
-		hasManyUpdate(db)
-	case constant.MethodHasManyCreate:
-		hasManyCreate(db)
-
-	}
-}
-
-// hasManyFindExample 关联查询
-func hasManyFindExample(db *gorm.DB, showDump bool) entity.User {
+// HasManyFind 关联查询
+func HasManyFind(db *gorm.DB, showDump bool) entity.User {
 	if showDump {
 		dump.P("------------ 接下来进入的是 HasMany 介绍 ------------")
 	}
-
 	//关联查询
 	var user, user1, user2 entity.User
 
-	db.Model(&user).Preload("UserRole.Role").First(&user1)
+	db.Model(&user).Preload("UserRole.Role").Last(&user1)
 
-	db.Model(&user).Preload("UserRole").First(&user2)
+	db.Model(&user).Preload("UserRole").Last(&user2)
 
 	dump.P(user1)
 
@@ -39,23 +25,23 @@ func hasManyFindExample(db *gorm.DB, showDump bool) entity.User {
 	return user1
 }
 
-// hasManyUpdate 关联更新
-func hasManyUpdate(db *gorm.DB) {
-	user := hasManyFindExample(db, false)
+// HasManyUpdate 关联更新
+func HasManyUpdate(db *gorm.DB) {
+	user := HasManyFind(db, false)
 	//更新
 	user.UserRole = []entity.UserRole{
 		{
 			Id:     user.UserRole[0].Id,
 			UserId: user.Id,
-			RoleId: 3,
+			RoleId: 4,
 		},
 	}
 	//
 	db.Session(&gorm.Session{FullSaveAssociations: true}).Save(&user)
 }
 
-// hasManyCreate 关联创建
-func hasManyCreate(db *gorm.DB) {
+// HasManyCreate 关联创建
+func HasManyCreate(db *gorm.DB) {
 	createUserData := entity.User{
 		Username: "炎帝",
 		Nickname: "炎帝",
@@ -66,6 +52,9 @@ func hasManyCreate(db *gorm.DB) {
 		UserRole: []entity.UserRole{
 			{
 				RoleId: 2,
+			},
+			{
+				RoleId: 1,
 			},
 		},
 	}

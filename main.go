@@ -3,8 +3,6 @@ package main
 import (
 	"github.com/gookit/goutil/dump"
 	"gorm.io/gorm"
-	"gorm/constant"
-	"gorm/example"
 	"gorm/initdb"
 )
 
@@ -32,20 +30,24 @@ func init() {
 }
 
 func main() {
+	//创建
+	//example.Belong2HasoneCreate(db)
+	//查找
+	//example.Belongs2HasOneFind(db, true)
+	//更新
+	//example.Belong2HasoneUpdate(db)
 
-	belongs2hasOne := make([]uint32, 0)
-	belongs2hasOne = append(belongs2hasOne, constant.MethodBelongs2HasOneFind, constant.MethodBelongs2HasOneCreate, constant.MethodBelongs2HasOneUpdate)
-	for _, v := range belongs2hasOne {
-		example.Belongs2HasOneExample(db, v)
-	}
+	//创建
+	//example.HasManyCreate(db)
+	//查找
+	//example.HasManyFind(db, true)
+	//更新
+	//example.HasManyUpdate(db)
 
-	hasMany := make([]uint32, 0)
-	hasMany = append(hasMany, constant.MethodHasManyFind, constant.MethodHasManyCreate, constant.MethodHasManyUpdate)
-	for _, v := range hasMany {
-		example.Belongs2HasOneExample(db, v)
-	}
-
-	example.Many2ManyExample(db)
+	//创建
+	//example.Many2manyCreate(db)
+	//查找
+	//example.Many2ManyExample(db)
 	Thank()
 
 }
@@ -53,4 +55,5 @@ func main() {
 // Thank 感谢
 func Thank() {
 	dump.P("------------ 谢谢聆听 ------------")
+	dump.P("PS 多留意生成的SQL.")
 }
