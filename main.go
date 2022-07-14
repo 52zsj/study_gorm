@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gookit/goutil/dump"
 	"gorm.io/gorm"
+	"gorm/example"
 	"gorm/initdb"
 )
 
@@ -30,17 +31,18 @@ func init() {
 }
 
 func main() {
+
+	//查找
+	example.Belongs2HasOneFind(db, true)
 	//创建
 	//example.Belong2HasoneCreate(db)
-	//查找
-	//example.Belongs2HasOneFind(db, true)
 	//更新
 	//example.Belong2HasoneUpdate(db)
 
-	//创建
-	//example.HasManyCreate(db)
 	//查找
 	//example.HasManyFind(db, true)
+	//创建
+	//example.HasManyCreate(db)
 	//更新
 	//example.HasManyUpdate(db)
 
@@ -48,7 +50,8 @@ func main() {
 	//example.Many2manyCreate(db)
 	//查找
 	//example.Many2ManyExample(db)
-	Thank()
+
+	//Thank()
 
 }
 

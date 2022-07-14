@@ -10,7 +10,8 @@ import (
 func Belongs2HasOneFind(db *gorm.DB, showDump bool) entity.User {
 
 	if showDump {
-		dump.P("belongs to  和 has one 非常类似 从记录上来说都是指的1对1,\n has one 是指正向联系 比如 user表存在一个扩展表 user_other 这个就是1对1关系\n belongs to 是指反向联系 还是上面的例子 就是 user_other是属于user的\n 简单来说的话就是 我和你1对1  你属于我  我也属于你这种.只是逻辑上的偏差")
+		dump.P("belongsTo 和hasOne 非常类似,从记录上来说都是指的1对1, hasOne是指正向联系比如:user表存在一个扩展表user_other这个就是1对1关系")
+		dump.P("belongsTo是指反向联系还是上面的例子:user_other属于user,简单概括就是 我和你 1对1对应,你属于我,我也属于你.只是逻辑上的偏差")
 		dump.P("------------ 关联查询 介绍 ------------")
 	}
 	var user, user1, user2 entity.User

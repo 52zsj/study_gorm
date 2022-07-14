@@ -4,6 +4,10 @@ import (
 	"gorm.io/gorm"
 )
 
+// 1个用户有1条扩展信息 用户1对1扩展 hasOne  扩展属于用户belongsTo (当然也是1对1的关系)
+// 1个用户有多重身份 用户1对多角色 hasMany
+// 角色和权限是多对多 ManytoMany 1个角色对应多个权限  1个权限也可以属于多个角色
+
 // 一个结构体就是一个模型 可以嵌入gorm.Model 来减少字段编写
 type TestGromModel struct {
 	gorm.Model
@@ -20,6 +24,7 @@ type User struct {
 	UserRole  []UserRole `json:"user_role" gorm:"foreignKey:UserId"`  // 一个用户可能有多个角色
 }
 
+// 接收器User
 func (User) TableName() string {
 	return "user"
 }
